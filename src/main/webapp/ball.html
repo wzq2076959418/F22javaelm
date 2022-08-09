@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style rel="stylesheet">
+    .display span{
+      display: block;
+      float: left;
+      width: 40px;
+      height: 40px;
+      margin: 10px;
+      background-color: red;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+    }
+  </style>
+</head>
+<body>
+<input id="btn" type="button" value="生成" />
+<div class="display">111</div>
+<script>
+  //事件绑定，将函数disResult的地址
+  window.onload = function (){
+    document.getElementById("btn").onclick = disResult;
+  }
+
+
+  function disResult() {
+      var aRedPool = new Array(35);
+      var iRedNum = 6;
+      var aRedRet = new Array(0);
+      for (let i = 0; i < aRedPool.length; i++) {
+          aRedPool[i] = i + 1;
+      }
+
+      // console.log(aRedPool);
+      var iRend = 0;
+      for (let i = 0; i < iRedNum; i++) {
+          iRend = Math.floor(Math.random() * aRedPool.length);
+          aRedRet.push(aRedPool.splice(iRend, 1)[0]);
+      }
+
+      console.log(aRedRet);
+      var sRet = "";
+      for (let i = 0; i < aRedRet.length; i++) {
+          sRet += "<span>" + aRedRet[i] + "</span>";
+      }
+
+      document.querySelector(".display").innerHTML = sRet;
+
+  }
+
+
+</script>
+</body>
+</html>
