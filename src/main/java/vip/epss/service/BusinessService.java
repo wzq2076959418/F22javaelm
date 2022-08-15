@@ -5,5 +5,5 @@ import vip.epss.domain.dto.OrderDto;
 import java.util.List;
 
 public interface BusinessService {
-    List<OrderDto> searchOrder(Integer orderTypeId);
+    List<OrderDto> selectByBusinessName(String businessName) throws Exception;
 }

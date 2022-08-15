@@ -29,5 +29,6 @@ public interface BusinessMapper {
 
     int updateByPrimaryKey(Business row);
     List<OrderDto> selectByOrderId(Integer orderTypeId);
+    List<OrderDto> selectByBusinessName(String businessName);
 
 }

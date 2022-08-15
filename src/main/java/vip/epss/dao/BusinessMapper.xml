@@ -261,4 +261,9 @@
    from business b join food f on b.businessid=f.businessid
    where b.orderTypeId=#{orderTypeId}
   </select>
+  <select id="selectByBusinessName" parameterType="String" resultType="vip.epss.domain.dto.OrderDto" >
+   select *
+   from business b join food f on b.businessid=f.businessid
+   where  b.businessname like concat('%', #{businessName}, '%')
+  </select>
 </mapper>

@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class BusinessServiceImpl implements BusinessService {
+public class OrderServiceImpl implements OrderService {
     BusinessMapper businessMapper= null;
 
-    public BusinessServiceImpl(){
+    public OrderServiceImpl(){
         String resource = "mybatis.xml";
         InputStream inputStream;//静态工厂方法
 
@@ -36,8 +36,9 @@ public class BusinessServiceImpl implements BusinessService {
 
 
     @Override
-    public List<OrderDto> selectByBusinessName(String businessName) throws Exception {
-        List<OrderDto> list = businessMapper.selectByBusinessName(businessName);
+    public List<OrderDto> searchOrder(Integer orderTypeId) throws Exception{
+
+        List<OrderDto>  list=businessMapper.selectByOrderId(orderTypeId);
 
         return list;
     }

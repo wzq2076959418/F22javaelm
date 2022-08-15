@@ -3,6 +3,7 @@ package vip.epss.contorler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import vip.epss.domain.dto.OrderDto;
 import vip.epss.service.BusinessServiceImpl;
+import vip.epss.service.OrderServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,28 +14,36 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "ElemServlet", value = "/ElemServlet")
-public class elemServlet extends HttpServlet {
+@WebServlet(name = "SelectBusinessNameServlet", value = "/SelectBusinessNameServlet")
+public class SelectBusinessNameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doProcess(request, response);
+        try {
+            doProcess(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doProcess(request, response);
+        try {
+            doProcess(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer orderTypeId = Integer.valueOf(request.getParameter("orderTypeId"));
+    protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        BusinessServiceImpl businessService = new BusinessServiceImpl();
+        List<OrderDto> list = businessService.selectByBusinessName(request.getParameter("businessName"));
 
 
-        BusinessServiceImpl businessService =new BusinessServiceImpl();
-        List<OrderDto> list = businessService.searchOrder(orderTypeId);
+//        MessageAndDate.success("执行成功").add("regsta",)
         //将返回的数据编码成utf-8格式的字节流，与下面的content-type区别
         response.setCharacterEncoding("utf-8");
 //告诉浏览器返回的数据是json格式，且以utf-8格式解码
         response.setContentType("application/json;charset=utf-8");//response.setHeader("Content-type", "text/json;charset=UTF-8");
-        PrintWriter out =response.getWriter();
-        ObjectMapper om =new ObjectMapper();
+        PrintWriter out = response.getWriter();
+        ObjectMapper om = new ObjectMapper();
         out.print(om.writeValueAsString(list));
         out.close();
     }
