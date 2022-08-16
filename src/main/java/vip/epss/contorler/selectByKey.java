@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "SelectBusinessNameServlet", value = "/SelectBusinessNameServlet")
-public class SelectBusinessNameServlet extends HttpServlet {
+@WebServlet(name = "selectByKey", value = "/selectByKey")
+public class selectByKey extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             doProcess(request, response);
@@ -34,7 +34,7 @@ public class SelectBusinessNameServlet extends HttpServlet {
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
         BusinessServiceImpl businessService = new BusinessServiceImpl();
-        List<OrderDto> list = businessService.selectByBusinessName(request.getParameter("businessName"));
+        List<OrderDto> list = businessService.selectByKey(request.getParameter("key"));
 
 
 //        MessageAndDate.success("执行成功").add("regsta",)

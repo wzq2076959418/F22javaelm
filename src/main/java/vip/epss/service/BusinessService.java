@@ -5,5 +5,5 @@ import vip.epss.domain.dto.OrderDto;
 import java.util.List;
 
 public interface BusinessService {
-    List<OrderDto> selectByBusinessName(String businessName) throws Exception;
+    List<OrderDto> selectByKey(String Key) throws Exception;
 }

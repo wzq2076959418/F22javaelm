@@ -36,8 +36,8 @@ public class BusinessServiceImpl implements BusinessService {
 
 
     @Override
-    public List<OrderDto> selectByBusinessName(String businessName) throws Exception {
-        List<OrderDto> list = businessMapper.selectByBusinessName(businessName);
+    public List<OrderDto> selectByKey(String key) throws Exception {
+        List<OrderDto> list = businessMapper.selectByKey(key);
 
         return list;
     }
