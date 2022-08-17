@@ -259,11 +259,17 @@
   <select id="selectByOrderId" parameterType="integer" resultType="vip.epss.domain.dto.OrderDto" >
    select *
    from business b join food f on b.businessid=f.businessid
+    <if test="orderTypeId != null and orderTypeId != ''">
    where b.orderTypeId=#{orderTypeId}
+    </if>
   </select>
   <select id="selectByKey" parameterType="String" resultType="vip.epss.domain.dto.OrderDto" >
    select *
    from business b join food f on b.businessid=f.businessid
-   where  b.businessname like concat('%', #{key}, '%') or f.foodname like concat('%', #{key}, '%')
+   where  1 = 1
+   <if test="key != null and key != ''">
+     b.businessname like concat('%', #{key}, '%') or f.foodname like concat('%', #{key}, '%')
+   </if>
+
   </select>
 </mapper>
