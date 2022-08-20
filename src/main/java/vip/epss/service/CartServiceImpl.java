@@ -51,6 +51,7 @@ public class CartServiceImpl implements CartService{
         try {
             DBUtil.getConnection();
             result = cartMapper.insertCart(cart);
+//            Integer cartid = cart.getCartid();
         } catch (Exception e) {
             e.printStackTrace();
         }finally{

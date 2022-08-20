@@ -70,20 +70,7 @@
   <sql id="Base_Column_List">
     foodId, foodName, foodExplain, foodPrice, businessId, remarks
   </sql>
-  <select id="selectByExample" parameterType="vip.epss.domain.FoodExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from food
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -225,4 +212,16 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where foodId = #{foodid,jdbcType=INTEGER}
   </update>
+  <select id="listFoodByBusinessId" parameterType="java.lang.Integer" resultType="vip.epss.domain.Food">
+    select
+    <if test="distinct">
+      <include refid="Base_Column_List" />
+    </if>
+    <include refid="Base_Column_List" />
+    from food
+    where businessid=#{businessid}
+    <if test="orderByClause != null">
+      order by foodid
+    </if>
+  </select>
 </mapper>

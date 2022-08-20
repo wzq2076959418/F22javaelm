@@ -87,12 +87,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from business
-    where businessId = #{businessid,jdbcType=INTEGER}
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from business
     where businessId = #{businessid,jdbcType=INTEGER}
@@ -264,12 +259,19 @@
     </if>
   </select>
   <select id="selectByKey" parameterType="String" resultType="vip.epss.domain.dto.OrderDto" >
-   select *
+   select
+    <include refid="Base_Column_List" />
    from business b join food f on b.businessid=f.businessid
    where  1 = 1
    <if test="key != null and key != ''">
      b.businessname like concat('%', #{key}, '%') or f.foodname like concat('%', #{key}, '%')
    </if>
 
+  </select>
+  <select id="getBusinessById" parameterType="java.lang.Integer" resultType="vip.epss.domain.Business">
+    select
+    <include refid="Base_Column_List" />
+    from business
+    where businessId = #{businessid}
   </select>
 </mapper>

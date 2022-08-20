@@ -19,7 +19,7 @@ public interface BusinessMapper {
 
     List<Business> selectByExample(BusinessExample example);
 
-    Business selectByPrimaryKey(Integer businessid);
+    Business getBusinessById(Integer businessid);
 
     int updateByExampleSelective(@Param("row") Business row, @Param("example") BusinessExample example);
 

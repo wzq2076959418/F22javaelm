@@ -1,10 +1,12 @@
-package vip.epss.contorler;
+package vip.epss.contorler.Orderdetailet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import vip.epss.domain.Cart;
-import vip.epss.domain.dto.CartDto;
+import vip.epss.domain.Orderdetailet;
 import vip.epss.service.CartService;
 import vip.epss.service.CartServiceImpl;
+import vip.epss.service.OrderdetailetService;
+import vip.epss.service.OrderdetailetServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +17,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "updataCartServlet", value = "/updataCartServlet")
-public class updataCartServlet extends HttpServlet {
+@WebServlet( value = "/listOrderDetailetByOrderId")
+public class listOrderDetailetByOrderId extends HttpServlet {
 //    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        try {
 //            doProcess(request, response);
@@ -34,19 +36,9 @@ public class updataCartServlet extends HttpServlet {
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-
-        Cart cart = new Cart();
-        if(request.getParameter("foodid")!=null) {
-        cart.setFoodid(Integer.valueOf(request.getParameter("foodid")));}
-        if(request.getParameter("businessid")!=null) {
-        cart.setBusinessid(Integer.valueOf(request.getParameter("businessid")));}
-        if(request.getParameter("userid")!=null) {
-        cart.setUserid(request.getParameter("userid"));}
-        if(request.getParameter("quantity")!=null) {
-        cart.setQuantity(Integer.valueOf(request.getParameter("quantity")));}
-        CartService service = new CartServiceImpl();
-        int result = service.updateCart(cart);
+        Integer orderId = Integer.valueOf(request.getParameter("orderId"));
+        OrderdetailetService service =new OrderdetailetServiceImpl();
+        List<Orderdetailet> list = service.listOrderDetailetByOrderId(orderId);
 
 
 //        MessageAndDate.success("执行成功").add("regsta",)
@@ -56,7 +48,7 @@ public class updataCartServlet extends HttpServlet {
         response.setContentType("application/json;charset=utf-8");//response.setHeader("Content-type", "text/json;charset=UTF-8");
         PrintWriter out =response.getWriter();
         ObjectMapper om =new ObjectMapper();
-        out.print(om.writeValueAsString(result));
+        out.print(om.writeValueAsString(list));
         out.close();
     }
 

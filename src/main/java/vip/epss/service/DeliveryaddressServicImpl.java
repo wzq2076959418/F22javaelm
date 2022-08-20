@@ -5,17 +5,20 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import vip.epss.dao.BusinessMapper;
-import vip.epss.domain.Business;
+import vip.epss.dao.DeliveryaddressMapper;
+import vip.epss.dao.FoodMapper;
+import vip.epss.domain.Deliveryaddress;
 import vip.epss.domain.dto.OrderDto;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class BusinessServiceImpl implements BusinessService {
-    BusinessMapper businessMapper= null;
+public class DeliveryaddressServicImpl implements DeliveryaddressServic{
+    DeliveryaddressMapper deliveryaddressMapper;
 
-    public BusinessServiceImpl(){
+
+    public DeliveryaddressServicImpl(){
         String resource = "mybatis.xml";
         InputStream inputStream;//静态工厂方法
 
@@ -32,23 +35,13 @@ public class BusinessServiceImpl implements BusinessService {
         SqlSession sqlSession = sqlSessionFactory.openSession(true);//当前session是自动commit的
         //        sqlSession.方法();
         //拿到动态代理生成的实现类
-        businessMapper = sqlSession.getMapper(BusinessMapper.class);
+        deliveryaddressMapper = sqlSession.getMapper(DeliveryaddressMapper.class);
+
     }
 
-
     @Override
-    public List<OrderDto> selectByKey(String key) throws Exception {
-        List<OrderDto> list = businessMapper.selectByKey(key);
-
+    public List<Deliveryaddress> listDeliveryAddressByUserId(String userId) {
+        List<Deliveryaddress> list = deliveryaddressMapper.listDeliveryAddressByUserId(userId);
         return list;
-    }
-
-    @Override
-    public Business getBusinessById(Integer businessid) {
-
-        Business  business= businessMapper.getBusinessById(businessid);
-
-
-        return business;
     }
 }

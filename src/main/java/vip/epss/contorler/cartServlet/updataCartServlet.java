@@ -1,7 +1,8 @@
-package vip.epss.contorler;
+package vip.epss.contorler.cartServlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import vip.epss.domain.Cart;
+import vip.epss.domain.dto.CartDto;
 import vip.epss.service.CartService;
 import vip.epss.service.CartServiceImpl;
 
@@ -12,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
-@WebServlet(name = "deleCartServlet", value = "/deleCartServlet")
-public class deleCartServlet extends HttpServlet {
+@WebServlet(name = "updataCartServlet", value = "/updataCartServlet")
+public class updataCartServlet extends HttpServlet {
 //    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        try {
 //            doProcess(request, response);
@@ -32,6 +34,8 @@ public class deleCartServlet extends HttpServlet {
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+
         Cart cart = new Cart();
         if(request.getParameter("foodid")!=null) {
         cart.setFoodid(Integer.valueOf(request.getParameter("foodid")));}
@@ -39,8 +43,10 @@ public class deleCartServlet extends HttpServlet {
         cart.setBusinessid(Integer.valueOf(request.getParameter("businessid")));}
         if(request.getParameter("userid")!=null) {
         cart.setUserid(request.getParameter("userid"));}
+        if(request.getParameter("quantity")!=null) {
+        cart.setQuantity(Integer.valueOf(request.getParameter("quantity")));}
         CartService service = new CartServiceImpl();
-        int result = service.deleteCart(cart);
+        int result = service.updateCart(cart);
 
 
 //        MessageAndDate.success("执行成功").add("regsta",)

@@ -1,11 +1,11 @@
-package vip.epss.contorler;
+package vip.epss.contorler.Order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import vip.epss.domain.Cart;
+import vip.epss.domain.Orders;
 import vip.epss.domain.dto.CartDto;
-import vip.epss.domain.dto.OrderDto;
 import vip.epss.service.CartServiceImpl;
-import vip.epss.service.OrderServiceImpl;
+import vip.epss.service.OrdersService;
+import vip.epss.service.OrdersServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "cartServlet", value = "/cartServlet")
-public class cartServlet extends HttpServlet {
+@WebServlet(name = "saveOrdersServlet", value = "/saveOrdersServlet")
+public class saveOrdersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             doProcess(request, response);
@@ -35,17 +35,17 @@ public class cartServlet extends HttpServlet {
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String userId = request.getParameter("userid");
+        Integer businessId = Integer.valueOf(request.getParameter("businessid"));
+        Integer daId = Integer.valueOf(request.getParameter("daid"));
+        OrdersService service = new OrdersServiceImpl();
+        Orders orders =new Orders();
+        orders.setBusinessid(businessId);
+        orders.setUserid(userId);
+        orders.setDaid(daId);
+        int orderId = service.saveOrders(orders);
 
 
-        CartServiceImpl cartService =new CartServiceImpl();
-        CartDto cartDto = new CartDto();
-        if(request.getParameter("businessId")!=null) {
-            cartDto.setBusinessid(Integer.valueOf(request.getParameter("businessId")));
-        }
-        if(request.getParameter("userId")!=null) {
-            cartDto.setUserid(request.getParameter("userid"));
-        }
-        List<CartDto> list=cartService.queryCartList(cartDto);
 
 
 //        MessageAndDate.success("执行成功").add("regsta",)
@@ -55,7 +55,7 @@ public class cartServlet extends HttpServlet {
         response.setContentType("application/json;charset=utf-8");//response.setHeader("Content-type", "text/json;charset=UTF-8");
         PrintWriter out =response.getWriter();
         ObjectMapper om =new ObjectMapper();
-        out.print(om.writeValueAsString(list));
+        out.print(om.writeValueAsString(orderId));
         out.close();
     }
 

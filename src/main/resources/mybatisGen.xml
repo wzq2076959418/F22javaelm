@@ -27,6 +27,9 @@
 <!--        <table tableName="business" domainObjectName="Business" />-->
 <!--        <table tableName="food" domainObjectName="Food" />-->
 <!--        <table tableName="food" domainObjectName="Food" />-->
-        <table tableName="cart" domainObjectName="Cart" />
+<!--        <table tableName="cart" domainObjectName="Cart" />-->
+<!--        <table tableName="orders" domainObjectName="Orders" />-->
+        <table tableName="deliveryaddress" domainObjectName="Deliveryaddress" />
+<!--        <table tableName="orderdetailet" domainObjectName="Orderdetailet" />-->
     </context>
 </generatorConfiguration>

@@ -1,9 +1,8 @@
-package vip.epss.contorler;
+package vip.epss.contorler.cartServlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import vip.epss.domain.Cart;
 import vip.epss.domain.dto.CartDto;
-import vip.epss.service.CartService;
 import vip.epss.service.CartServiceImpl;
 
 import javax.servlet.ServletException;
@@ -15,15 +14,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "saveCartServlet", value = "/saveCartServlet")
-public class saveCartServlet extends HttpServlet {
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        try {
-//            doProcess(request, response);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+@WebServlet(name = "cartServlet", value = "/cartServlet")
+public class cartServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            doProcess(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -34,13 +33,17 @@ public class saveCartServlet extends HttpServlet {
     }
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Cart cart = new Cart();
-        cart.setFoodid(Integer.valueOf(request.getParameter("foodId")));
-        cart.setBusinessid(Integer.valueOf(request.getParameter("businessId")));
-        cart.setUserid(request.getParameter("userId"));
-        cart.setQuantity(Integer.valueOf(request.getParameter("quantity")));
-        CartService service = new CartServiceImpl();
-        int result = service.saveCart(cart);
+
+
+        CartServiceImpl cartService =new CartServiceImpl();
+        CartDto cartDto = new CartDto();
+        if(request.getParameter("businessId")!=null) {
+            cartDto.setBusinessid(Integer.valueOf(request.getParameter("businessId")));
+        }
+        if(request.getParameter("userId")!=null) {
+            cartDto.setUserid(request.getParameter("userid"));
+        }
+        List<CartDto> list=cartService.queryCartList(cartDto);
 
 
 //        MessageAndDate.success("执行成功").add("regsta",)
@@ -50,7 +53,7 @@ public class saveCartServlet extends HttpServlet {
         response.setContentType("application/json;charset=utf-8");//response.setHeader("Content-type", "text/json;charset=UTF-8");
         PrintWriter out =response.getWriter();
         ObjectMapper om =new ObjectMapper();
-        out.print(om.writeValueAsString(result));
+        out.print(om.writeValueAsString(list));
         out.close();
     }
 

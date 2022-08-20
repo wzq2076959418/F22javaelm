@@ -10,6 +10,26 @@ public class Cart {
     private String userid;
 
     private Integer quantity;
+    //多对一：所属食品
+    private Food food = new Food();
+    //多对一：所属商家
+    private Business business = new Business();
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
 
     public Integer getCartid() {
         return cartid;
@@ -59,6 +79,8 @@ public class Cart {
                 ", businessid=" + businessid +
                 ", userid='" + userid + '\'' +
                 ", quantity=" + quantity +
+                ", food=" + food +
+                ", business=" + business +
                 '}';
     }
 }

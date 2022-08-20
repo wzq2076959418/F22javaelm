@@ -16,7 +16,12 @@ public interface FoodMapper {
 
     int insertSelective(Food row);
 
-    List<Food> selectByExample(FoodExample example);
+    /**
+     * listFoodByBusinessId
+     * @param businessId
+     * @return
+     */
+    List<Food> listFoodByBusinessId(Integer businessId);
 
     Food selectByPrimaryKey(Integer foodid);
 
