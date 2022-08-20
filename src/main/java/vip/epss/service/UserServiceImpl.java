@@ -6,12 +6,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import vip.epss.dao.UserMapper;
 import vip.epss.domain.User;
+import vip.epss.domain.UserExample;
 import vip.epss.service.UserService;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends UserService {
     UserMapper userMapper = null;
 
     public UserServiceImpl() {
@@ -35,22 +37,32 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public int saveUser(User user) {
-        int i=0;
-        i=userMapper.saveUser(user);
-        return i;
-    }
-
-    @Override
-    public User getUserByIdByPass(String userId, String password) {
-        User user=userMapper.getUserByIdByPass(userId,password);
-        return user;
-    }
-
-    @Override
-    public User getUserById(String userId) {
-        User user=userMapper.getUserById(userId);
-        return user;
-    }
+//    @Override
+//    public int saveUser(User user) {
+//        int i=0;
+////        i=userMapper.saveUser(user);
+//        i = userMapper.insertSelective(user);
+//        return i;
+//    }
+//
+//    @Override
+//    public User getUserByIdByPass(String userId, String password) {
+//        UserExample userExample = new UserExample();
+//        UserExample.Criteria criteria = userExample.createCriteria();
+//        criteria.andUseridEqualTo(userId).andPasswordEqualTo(password);
+//
+//
+//        List<User> list = userMapper.selectByExample(userExample);
+//
+//        return list.get(0);
+////        return null;
+//    }
+//
+//    @Override
+//    public User getUserById(String userId) {
+////        User user=userMapper.getUserById(userId);
+//        User user1 = userMapper.selectByPrimaryKey(userId);
+//        return user1;
+////        return null;
+//    }
 }

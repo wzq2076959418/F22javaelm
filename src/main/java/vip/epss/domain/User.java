@@ -9,10 +9,6 @@ public class User {
 
     private Integer usersex;
 
-    public User(){
-
-    }
-
     public String getUserid() {
         return userid;
     }
@@ -44,23 +40,4 @@ public class User {
     public void setUsersex(Integer usersex) {
         this.usersex = usersex;
     }
-
-    public User(String userid, String password, String username, Integer usersex) {
-        this.userid = userid;
-        this.password = password;
-        this.username = username;
-        this.usersex = usersex;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userid='" + userid + '\'' +
-                ", password='" + password + '\'' +
-                ", username='" + username + '\'' +
-                ", usersex=" + usersex +
-                '}';
-    }
-
-
 }
